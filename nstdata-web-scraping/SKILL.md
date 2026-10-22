@@ -12,7 +12,7 @@ Use the configured Nstdata Crawl MCP tools. This skill supplies a workflow, not 
 
 - One URL: `nstdata_crawl_scrape`, normally Markdown with `options.onlyMainContent: true`. Use `mode: "async"` for work that needs resumable task IDs.
 - Existing async scrape ID: pass the submitted `id` as `taskId` to `nstdata_crawl_scrape_result`; reuse that task instead of submitting again.
-- Site: `nstdata_crawl_start` with an explicit `maxPages` within the authorized scope, then pass its returned `id` as `crawlId` to `nstdata_crawl_status` and `nstdata_crawl_pages`.
+- Site: read [site traversal](references/continuation.md#site-pages), then call `nstdata_crawl_start` with an explicit `maxPages` within the authorized scope. Pass its returned `id` as `crawlId` to `nstdata_crawl_status` and `nstdata_crawl_pages`.
 - Stored body: `nstdata_crawl_read_result` with the actual returned reference (for example, `data.markdownRef`) passed as `ref`, and the matching `format`. Read [continuation.md](references/continuation.md) before pagination, reference chunks or recovery from output limits.
 
 If required tools are missing, report which tool is unavailable and the local MCP configuration prerequisite. Do setup diagnostics without creating tasks. Credentials belong in the MCP process environment; ask for configuration status rather than secret values. Do not substitute another provider or invent a direct HTTP call.
@@ -21,7 +21,7 @@ If required tools are missing, report which tool is unavailable and the local MC
 
 A request to scrape authorizes the requested targets and purpose, subject to the host's approval rules and existing cost limits. Reuse valid authorization. Clarify only missing scope that changes the work, such as site-wide page count or permitted targets; do not ask again for an already agreed budget. Discovery itself creates no Crawl task.
 
-Submit each requested job once. Record the returned ID immediately before follow-up calls; persist it using the caller's existing task record if available, otherwise retain it in the conversation. A submission timeout can leave a remote task running without an ID: report uncertainty and stop, rather than resubmitting.
+Submit each requested job once. Record the returned ID immediately before follow-up calls; persist it using the caller's existing task record if available, otherwise retain it in the conversation. A timeout, connection/server error or unreadable submission response can leave remote work without a received ID: report the unknown outcome and stop. Review task history before considering another submission.
 
 For one follow-up attempt, cap status/result queries at 4, page-list calls at 10 and reference calls at 4, within a 120-second local waiting window. Use a narrower user limit when given. Count errors and unsuccessful calls too. These are workflow safety defaults, not service limits or a known monetary charge. If work is pending after a cap, return its ID/cursor/offset for a later explicitly requested continuation. Treat that continuation as further work within the remaining overall authorization, not a reset of the total page/cost budget.
 
