@@ -79,13 +79,20 @@ class InstallationTests(unittest.TestCase):
             sentinel = project / 'keep.txt'
             sentinel.write_text('Keep')
             self.install(project, 'cursor')
+            self.install(project, 'claude-code')
+            config = project / '.cursor/mcp.json'
+            config.parent.mkdir(exist_ok=True)
+            config.write_text('{"mcpServers":{"existing":{"command":"existing-server"}}}\n')
+            original = config.read_bytes()
             other = project / '.agents/skills/unrelated/SKILL.md'
             other.parent.mkdir()
             other.write_text('---\nname: unrelated\ndescription: Unrelated.\n---\nKeep.\n')
             self.run_cli(project, 'remove', SKILL, '--yes')
             self.assertFalse((project / '.agents/skills' / SKILL).exists())
+            self.assertFalse((project / '.claude/skills' / SKILL).exists())
             self.assertEqual(sentinel.read_text(), 'Keep')
             self.assertEqual(other.read_text().splitlines()[-1], 'Keep.')
+            self.assertEqual(config.read_bytes(), original)
 
 
 if __name__ == '__main__':

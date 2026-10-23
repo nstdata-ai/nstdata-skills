@@ -2,37 +2,36 @@
 
 [中文](README_zh.md)
 
-Agent Skills for webpage retrieval, bounded site crawling and result continuation through Nstdata MCP.
+Retrieve webpage content through Nstdata Crawl MCP from an Agent Skills client.
 
-## Install
+## Capabilities
 
-Use Node.js 24. The repository and MCP package are prepared locally and have not been released; the GitHub/npm commands below are the publication path. Before publication, use the local-checkout command and your existing local MCP installation.
+| Workflow | Behavior |
+|---|---|
+| Single page | Submit once and retrieve the requested content, including Markdown. |
+| Async task | Resume an existing task by ID without submitting it again. |
+| Bounded site crawl | Collect pages within the authorized scope and follow real pagination cursors. |
+| Referenced content | Read returned references in chunks and report partial or truncated content. |
 
-For Cursor, run in the project where you want to use the skill:
+The skill supplies instructions. It uses your configured Nstdata MCP server and existing authorization; it does not install a server or provide API credentials.
+
+## Get started
+
+Requires Node.js 24, an Agent Skills client and a Nstdata Crawl API key. This repository and the MCP package are not yet published. The commands below apply after publication; local checkout verification is in [Contributing](CONTRIBUTING.md#local-checkout).
+
+### 1. Install the skill
+
+Run from the project where you want to use it:
 
 ```sh
 npx skills add nstdata-ai/nstdata-skills --skill nstdata-web-scraping --agent cursor --yes
 ```
 
-For Claude Code, replace `--agent cursor` with `--agent claude-code`. The standard [skills CLI](https://github.com/vercel-labs/skills) discovers the skill and installs its files; downloading or extracting a ZIP is unnecessary. Installation is project-local by default. Cursor uses `.agents/skills/`; Claude Code uses `.claude/skills/`.
+For Claude Code, replace `--agent cursor` with `--agent claude-code`. The standard [skills CLI](https://github.com/vercel-labs/skills) installs the required files without ZIP extraction. Installation is project-local: Cursor discovers `.agents/skills/`; Claude Code uses `.claude/skills/`.
 
-For a local checkout, run inside this repository:
+### 2. Connect Nstdata MCP
 
-```sh
-npx skills add . --skill nstdata-web-scraping --agent cursor --yes
-```
-
-Rerun the same install command to replace this skill with the source version. Keep local customizations outside its directory. When migrating from a manual copy in another discovery location, remove that old copy to avoid loading the skill twice.
-
-To remove the skill from the current project:
-
-```sh
-npx skills remove nstdata-web-scraping --yes
-```
-
-## Configure Nstdata MCP
-
-The installer installs instructions, not the MCP server or credentials. Configure Nstdata MCP with Crawl enabled before using the skill. After the MCP package is published, the Cursor project configuration in `.cursor/mcp.json` is:
+If Crawl MCP is already configured, keep that configuration. Otherwise, after the MCP package and its dependencies are published, add this entry to the Cursor project's `.cursor/mcp.json`, preserving other entries:
 
 ```json
 {
@@ -49,25 +48,30 @@ The installer installs instructions, not the MCP server or credentials. Configur
 }
 ```
 
-Keep the real token in protected local client configuration and outside version control. Preserve existing MCP entries. For Claude Code, register the same stdio server using its [MCP configuration](https://code.claude.com/docs/en/mcp). The MCP package and its dependencies must be publicly available before the npm entry can work.
+The client must be able to find Node.js 24 and `npx`. Keep the real token in protected local client configuration outside version control. For Claude Code, register the same stdio server using its [MCP configuration](https://code.claude.com/docs/en/mcp).
 
-## Use
+### 3. Use the skill
 
-Start a new host session and select `/nstdata-web-scraping`. For example:
+Start a new client conversation and select `/nstdata-web-scraping`. For example:
 
 > Retrieve https://example.com/ as Markdown. Submit once; if only a Markdown reference is returned, read it using the result-reading tool.
 
-The skill discovers actual tool schemas, reuses existing task IDs, preserves source URLs and partial results, and bounds status, pagination and reference calls. It uses the existing authorization and cost limits.
+The agent follows the registered tool schemas, preserves source URLs and partial results, and bounds status, pagination and reference calls. Actual requests use your Nstdata account's quota.
 
-| Host | Verification scope |
-|---|---|
-| Cursor | Standard project installation and the single-page scrape/readable-content workflow |
-| Claude Code | Standard project installation; actual agent workflow acceptance pending |
+## Update or remove
 
-Installation tests do not establish agent behavior in other hosts or workflows.
+Rerun the install command to update the skill. Keep local customizations outside its directory. For a previous manual installation, see [migration](CONTRIBUTING.md#local-checkout).
 
-## Offline distribution
+Remove this skill's installations from the current project:
 
-`nstdata-web-scraping-1.0.0.zip` remains an optional offline artifact. It contains only the skill instructions, continuation reference and license. Build and checksum instructions are in [Contributing](CONTRIBUTING.md).
+```sh
+npx skills remove nstdata-web-scraping --yes
+```
 
-[Cursor skills](https://cursor.com/docs/skills) · [Claude Code skills](https://code.claude.com/docs/en/skills) · [MIT license](LICENSE)
+Other skills and MCP configuration are preserved.
+
+## Client compatibility
+
+Cursor has been verified for standard installation and a single-page scrape/content-reading workflow. Claude Code installation has been verified; its actual agent workflow remains unverified. Other Agent Skills clients need their own MCP configuration and verification.
+
+[Cursor skills](https://cursor.com/docs/skills) · [Claude Code skills](https://code.claude.com/docs/en/skills) · [Contributing](CONTRIBUTING.md) · [MIT license](LICENSE)

@@ -15,13 +15,33 @@ class PackageTests(unittest.TestCase):
         version = (package.ROOT / 'VERSION').read_text().strip()
         self.assertRegex(version, r'^\d+\.\d+\.\d+$')
         blocks = []
+        configs = []
         for name in ['README.md', 'README_zh.md']:
             text = (package.ROOT / name).read_text()
-            self.assertIn('nstdata-web-scraping-' + version + '.zip', text)
             self.assertNotIn('-rc.', text)
             blocks.append(re.findall(r'```sh\n([\s\S]*?)```', text))
+            configs.append(re.findall(r'```json\n([\s\S]*?)```', text))
         self.assertEqual(blocks[0], blocks[1])
+        self.assertEqual(configs[0], configs[1])
+        self.assertIn('nstdata-web-scraping-' + version + '.zip',
+                      (package.ROOT / 'CONTRIBUTING.md').read_text())
         self.assertIn('## ' + version + ' — Unreleased', (package.ROOT / 'CHANGELOG.md').read_text())
+
+    def test_local_documentation_links_resolve(self):
+        for source in package.ROOT.rglob('*.md'):
+            if '.git' in source.parts or 'dist' in source.parts:
+                continue
+            for target in re.findall(r'\[[^\]\n]+\]\(([^)\n]+)\)', source.read_text()):
+                if re.match(r'^[a-z]+:', target):
+                    continue
+                location, _, anchor = target.partition('#')
+                linked = source.parent / location if location else source
+                self.assertTrue(linked.is_file(), f'{source.name}: {target}')
+                if anchor:
+                    headings = re.findall(r'^#+ (.+)$', linked.read_text(), re.MULTILINE)
+                    slugs = [re.sub(r'[^\w -]', '', heading.lower()).replace(' ', '-')
+                             for heading in headings]
+                    self.assertIn(anchor, slugs, f'{source.name}: {target}')
 
     def test_reproducible_allowlisted_install(self):
         with TemporaryDirectory() as temp:

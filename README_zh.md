@@ -2,37 +2,36 @@
 
 [English](README.md)
 
-通过 Nstdata MCP 执行网页读取、有界整站抓取和结果接续。
+在支持 Agent Skills 的客户端中，通过 Nstdata Crawl MCP 获取网页内容。
 
-## 安装
+## 功能
 
-使用 Node.js 24。仓库和 MCP 包目前已本地准备、尚未发布；以下 GitHub/npm 命令用于发布后安装。发布前使用本地源码命令和已有的本地 MCP 安装。
+| 工作流 | 行为 |
+|---|---|
+| 单页抓取 | 只提交一次，读取 Markdown 等所需内容。 |
+| 异步任务接续 | 使用已有任务 ID 继续查询，不重复提交。 |
+| 有界整站抓取 | 在授权范围内收集页面，沿实际返回的游标分页。 |
+| 引用正文读取 | 分块读取返回的引用，明确标注部分内容和服务截断。 |
 
-Cursor：在需要使用 Skill 的项目中运行：
+Skill 提供操作指令，复用你已配置的 Nstdata MCP 和已有授权；不安装服务，也不提供 API 凭据。
+
+## 快速开始
+
+需要 Node.js 24、支持 Agent Skills 的客户端及 Nstdata Crawl API Key。仓库和 MCP 包尚未发布；下列命令在发布后使用，本地源码验证见[贡献说明](CONTRIBUTING.md#local-checkout)。
+
+### 1. 安装 Skill
+
+在实际使用 Skill 的项目中运行：
 
 ```sh
 npx skills add nstdata-ai/nstdata-skills --skill nstdata-web-scraping --agent cursor --yes
 ```
 
-Claude Code：将 `--agent cursor` 替换为 `--agent claude-code`。标准 [skills CLI](https://github.com/vercel-labs/skills) 自动发现并安装所需文件，无需下载或解压 ZIP。默认仅安装到当前项目：Cursor 使用 `.agents/skills/`，Claude Code 使用 `.claude/skills/`。
+Claude Code 将 `--agent cursor` 替换为 `--agent claude-code`。标准 [skills CLI](https://github.com/vercel-labs/skills) 自动安装所需文件，无需解压 ZIP。默认安装到当前项目：Cursor 从 `.agents/skills/` 发现 Skill，Claude Code 使用 `.claude/skills/`。
 
-本地源码验收：在本仓库目录中运行：
+### 2. 连接 Nstdata MCP
 
-```sh
-npx skills add . --skill nstdata-web-scraping --agent cursor --yes
-```
-
-更新时重新执行同一安装命令，以源码版本替换该 Skill；自定义修改保留在其目录之外。从其他发现路径中的手动安装副本迁移时，先移除旧副本，避免重复加载。
-
-从当前项目移除该 Skill：
-
-```sh
-npx skills remove nstdata-web-scraping --yes
-```
-
-## 配置 Nstdata MCP
-
-安装器只安装指令，不安装 MCP 服务或配置凭据。使用前应已配置 Nstdata MCP 并启用 Crawl。MCP 包发布后，Cursor 项目的 `.cursor/mcp.json` 配置如下：
+已有 Crawl MCP 配置可直接复用。尚未配置时，在 MCP 包及其依赖发布后，将以下条目加入 Cursor 项目的 `.cursor/mcp.json`，保留其他已有条目：
 
 ```json
 {
@@ -49,25 +48,30 @@ npx skills remove nstdata-web-scraping --yes
 }
 ```
 
-真实 Token 保留在受保护的本地客户端配置中，不提交版本控制；保留已有 MCP 条目。Claude Code 按其 [MCP 配置说明](https://code.claude.com/docs/en/mcp) 注册同一个 stdio 服务。上述 npm 入口生效的前提是 MCP 包及其依赖均已公开发布。
+客户端需能找到 Node.js 24 和 `npx`。真实 Token 保存在受保护的本地客户端配置中，不提交版本控制。Claude Code 按其 [MCP 配置说明](https://code.claude.com/docs/en/mcp) 注册同一 stdio 服务。
 
-## 使用
+### 3. 使用 Skill
 
-开启新的宿主会话，选择 `/nstdata-web-scraping`，例如：
+开启新的客户端对话，选择 `/nstdata-web-scraping`，例如：
 
 > 将 https://example.com/ 读取为 Markdown。只提交一次；若仅返回 Markdown 引用，使用结果读取工具读取正文。
 
-Skill 使用实际发现的工具 schema，复用已有任务 ID，保留来源 URL 和部分结果，并限制状态查询、分页及引用读取次数；沿用已有授权和消耗边界。
+Agent 使用实际注册的工具 schema，保留来源 URL 和部分结果，并限制状态查询、分页及引用读取次数。真实请求使用你的 Nstdata 账号额度。
 
-| 宿主 | 验证范围 |
-|---|---|
-| Cursor | 标准项目安装、单页抓取及可读正文工作流 |
-| Claude Code | 标准项目安装；实际 Agent 工作流待验收 |
+## 更新或移除
 
-安装测试不代表其他宿主或工作流中的 Agent 行为已验收。
+重新执行安装命令即可更新。自定义修改保留在 Skill 目录之外；旧手动副本的处理见[迁移说明](CONTRIBUTING.md#local-checkout)。
 
-## 离线分发
+从当前项目移除该 Skill 的安装：
 
-`nstdata-web-scraping-1.0.0.zip` 保留为可选离线产物，仅包含 Skill 指令、接续参考和许可。构建与校验值说明见[贡献说明](CONTRIBUTING.md)。
+```sh
+npx skills remove nstdata-web-scraping --yes
+```
 
-[Cursor Skills](https://cursor.com/docs/skills) · [Claude Code Skills](https://code.claude.com/docs/en/skills) · [MIT 许可](LICENSE)
+保留其他 Skill 和 MCP 配置。
+
+## 客户端兼容性
+
+Cursor 已验证标准安装和单页抓取／正文读取工作流。Claude Code 已验证安装，实际 Agent 工作流尚未验收。其他支持 Agent Skills 的客户端需自行配置 MCP 并验证。
+
+[Cursor Skills](https://cursor.com/docs/skills) · [Claude Code Skills](https://code.claude.com/docs/en/skills) · [贡献说明](CONTRIBUTING.md) · [MIT 许可](LICENSE)

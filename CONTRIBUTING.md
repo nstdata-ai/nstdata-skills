@@ -11,7 +11,7 @@ python3 -m unittest discover -s tests -v
 python3 scripts/package.py
 ```
 
-The builder writes the optional offline ZIP to `dist/` and prints its filename and SHA-256. Keep `VERSION`, README offline filenames and CHANGELOG aligned. Packaging tests verify reproducibility and extraction; they do not execute a model or the MCP server.
+The builder writes the optional `nstdata-web-scraping-1.0.0.zip` to `dist/` and prints its SHA-256. Keep `VERSION`, the artifact filename and CHANGELOG aligned. Packaging tests verify reproducibility and extraction; they do not execute a model or the MCP server.
 
 Verify the standard installer with Node.js 24 and `skills@1.7.4`:
 
@@ -32,3 +32,18 @@ The selected single-page workflow has manual Cursor acceptance. For changes affe
 Packaging must remain allowlisted and deterministic.
 
 Report security issues without secrets or captured customer content.
+
+## Local checkout
+
+Run the same installer from the target project, passing the absolute path of this repository as the source:
+
+```sh
+cd /ABSOLUTE/PATH/TO/TARGET_PROJECT
+npx skills add /ABSOLUTE/PATH/TO/nstdata-skills --skill nstdata-web-scraping --agent cursor --yes
+```
+
+Use `--agent claude-code` for Claude Code. Before publication, keep using your existing local MCP package installation; the skill installer does not install or reconfigure MCP.
+
+When replacing a manual installation in another discovery directory, back it up and remove that old copy to avoid duplicate discovery. Keep unrelated skills, local customizations and existing MCP configuration.
+
+The optional ZIP contains only `nstdata-web-scraping/SKILL.md`, `LICENSE` and `references/continuation.md`; extract it under the target client's skill discovery directory only when standard installation is unavailable.
