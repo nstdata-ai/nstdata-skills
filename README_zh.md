@@ -17,7 +17,7 @@ Skill 提供操作指令，复用你已配置的 Nstdata MCP 和已有授权；�
 
 ## 快速开始
 
-需要 Node.js 24、支持 Agent Skills 的客户端及 Nstdata Crawl API Key。仓库和 MCP 包尚未发布；下列命令在发布后使用，本地源码验证见[贡献说明](CONTRIBUTING.md#local-checkout)。
+需要 Node.js 24、Git、支持 Agent Skills 的客户端及 Nstdata Crawl API Key。
 
 ### 1. 安装 Skill
 
@@ -27,11 +27,11 @@ Skill 提供操作指令，复用你已配置的 Nstdata MCP 和已有授权；�
 npx skills add nstdata-ai/nstdata-skills --skill nstdata-web-scraping --agent cursor --yes
 ```
 
-Claude Code 将 `--agent cursor` 替换为 `--agent claude-code`。标准 [skills CLI](https://github.com/vercel-labs/skills) 自动安装所需文件，无需解压 ZIP。默认安装到当前项目：Cursor 从 `.agents/skills/` 发现 Skill，Claude Code 使用 `.claude/skills/`。
+Claude Code 将 `--agent cursor` 替换为 `--agent claude-code`。标准 [skills CLI](https://github.com/vercel-labs/skills) 将所选 Skill 安装到当前项目：Cursor 从 `.agents/skills/` 发现 Skill，Claude Code 使用 `.claude/skills/`。
 
 ### 2. 连接 Nstdata MCP
 
-已有 Crawl MCP 配置可直接复用。尚未配置时，在 MCP 包及其依赖发布后，将以下条目加入 Cursor 项目的 `.cursor/mcp.json`，保留其他已有条目：
+已有 Crawl MCP 配置可直接复用。尚未配置时，将以下条目加入 Cursor 项目的 `.cursor/mcp.json`，保留其他已有条目：
 
 ```json
 {

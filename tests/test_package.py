@@ -1,4 +1,5 @@
 import importlib.util
+import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
@@ -25,7 +26,55 @@ class PackageTests(unittest.TestCase):
         self.assertEqual(configs[0], configs[1])
         self.assertIn('nstdata-web-scraping-' + version + '.zip',
                       (package.ROOT / 'CONTRIBUTING.md').read_text())
-        self.assertIn('## ' + version + ' — Unreleased', (package.ROOT / 'CHANGELOG.md').read_text())
+        self.assertRegex((package.ROOT / 'CHANGELOG.md').read_text(),
+                         r'(?m)^## ' + re.escape(version) + r'$')
+
+    def test_documented_mcp_configuration(self):
+        for name in ['README.md', 'README_zh.md']:
+            with self.subTest(document=name):
+                blocks = re.findall(r'```json\n([\s\S]*?)```',
+                                    (package.ROOT / name).read_text())
+                self.assertEqual(len(blocks), 1)
+                config = json.loads(blocks[0])
+                server = config['mcpServers']['nstdata']
+                self.assertEqual(server['command'], 'npx')
+                self.assertEqual(len(server['args']), 2)
+                self.assertEqual(server['args'][0], '--yes')
+                self.assertRegex(server['args'][1],
+                                 r'^@nstdata-ai/mcp-server@\d+\.\d+\.\d+$')
+                self.assertEqual(server['env'], {
+                    'NSTDATA_MODULES': 'crawl',
+                    'NSTDATA_API_TOKEN': 'YOUR_CRAWL_API_TOKEN',
+                })
+
+    def test_skill_metadata_matches_installation_name(self):
+        source = package.ROOT / 'nstdata-web-scraping' / 'SKILL.md'
+        text = source.read_text()
+        frontmatter = re.match(r'\A---\n([\s\S]*?)\n---\n', text)
+        self.assertIsNotNone(frontmatter)
+        fields = {}
+        for line in frontmatter.group(1).splitlines():
+            key, separator, value = line.partition(':')
+            self.assertEqual(separator, ':')
+            self.assertNotIn(key, fields)
+            fields[key] = value.strip()
+        self.assertEqual(fields['name'], source.parent.name)
+        self.assertRegex(fields['name'], r'^[a-z0-9]+(?:-[a-z0-9]+)*$')
+        self.assertTrue(fields['description'])
+        self.assertEqual(fields['license'], 'MIT')
+
+    def test_documented_code_blocks_are_readable_and_json_is_valid(self):
+        for source in package.ROOT.rglob('*.md'):
+            if '.git' in source.parts or 'dist' in source.parts:
+                continue
+            blocks = re.findall(r'^```([^\n]*)\n([\s\S]*?)^```',
+                                source.read_text(), re.MULTILINE)
+            for language, code in blocks:
+                with self.subTest(document=source.relative_to(package.ROOT), language=language):
+                    for line in code.splitlines():
+                        self.assertLessEqual(len(line), 100, line)
+                    if language == 'json':
+                        json.loads(code)
 
     def test_local_documentation_links_resolve(self):
         for source in package.ROOT.rglob('*.md'):

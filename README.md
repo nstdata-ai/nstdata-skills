@@ -17,7 +17,7 @@ The skill supplies instructions. It uses your configured Nstdata MCP server and 
 
 ## Get started
 
-Requires Node.js 24, an Agent Skills client and a Nstdata Crawl API key. This repository and the MCP package are not yet published. The commands below apply after publication; local checkout verification is in [Contributing](CONTRIBUTING.md#local-checkout).
+Requires Node.js 24, Git, an Agent Skills client and a Nstdata Crawl API key.
 
 ### 1. Install the skill
 
@@ -27,11 +27,11 @@ Run from the project where you want to use it:
 npx skills add nstdata-ai/nstdata-skills --skill nstdata-web-scraping --agent cursor --yes
 ```
 
-For Claude Code, replace `--agent cursor` with `--agent claude-code`. The standard [skills CLI](https://github.com/vercel-labs/skills) installs the required files without ZIP extraction. Installation is project-local: Cursor discovers `.agents/skills/`; Claude Code uses `.claude/skills/`.
+For Claude Code, replace `--agent cursor` with `--agent claude-code`. The standard [skills CLI](https://github.com/vercel-labs/skills) installs the selected skill in the current project: Cursor discovers `.agents/skills/`; Claude Code uses `.claude/skills/`.
 
 ### 2. Connect Nstdata MCP
 
-If Crawl MCP is already configured, keep that configuration. Otherwise, after the MCP package and its dependencies are published, add this entry to the Cursor project's `.cursor/mcp.json`, preserving other entries:
+If Crawl MCP is already configured, keep that configuration. Otherwise, add this entry to the Cursor project's `.cursor/mcp.json`, preserving other entries:
 
 ```json
 {

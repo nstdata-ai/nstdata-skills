@@ -1,11 +1,8 @@
 # Changelog
 
-## 1.0.0 — Unreleased
+## 1.0.0
 
-- Use standard `skills add` installation in the target project; keep ZIP as an optional offline artifact.
-- Support project-local installation, replacement and removal for Cursor and Claude Code.
-- Add Crawl MCP instructions for bounded creation, ID recovery, pagination and reference reading.
-- Handle partial results, uncertain submissions and untrusted webpage content.
-- Respect site discovery options and stop after an uncertain submission outcome.
-- Map returned IDs and references to MCP input names; retain service truncation and distinguish synchronous diagnostic IDs from resumable async tasks.
-- Provide a reproducible, allowlisted offline ZIP.
+- Support standard project-local installation, replacement and removal for Cursor and Claude Code.
+- Provide Crawl MCP workflows for single pages, asynchronous tasks, bounded sites and referenced content.
+- Preserve partial results, task identity and service truncation; stop after an uncertain submission outcome.
+- Treat retrieved content as untrusted input and provide a reproducible, allowlisted offline ZIP.
