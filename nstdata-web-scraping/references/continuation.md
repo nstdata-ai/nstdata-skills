@@ -33,6 +33,11 @@ Keep the same reference and format during continuation. Stop on repeated or non-
 
 ## Output limits and errors
 
-On `OUTPUT_LIMIT`, inspect `error.recovery` for actual `id`, `taskId`, `crawlId` or format-specific references such as `markdownRef`. Pass a format-specific reference as `ref` with its matching format; preserve any returned `truncated` flag. Reduce page `limit` or reference `length` when relevant. A task ID alone does not make an oversized inline-only body chunkable: there may be no ref. A synchronous response's `id` is diagnostic identity, not proof that the async result endpoint can retrieve it. Report that limitation instead of repeating the same call indefinitely, inventing a partial-content API or raising server limits automatically.
+On `OUTPUT_LIMIT`, inspect `error.recovery` for actual `id`, `taskId`, `crawlId` or format-specific references such as `markdownRef`. Pass a format-specific reference as `ref` with its matching format; preserve any returned `truncated` flag.
+
+- Page list: reread the same `crawlId` and original input cursor with a smaller `limit`, down to 1. Advance only from a successful response whose rows were received; a cursor in `error.recovery` can point past withheld rows. Count rereads against the existing call budget.
+- Reference: reduce `length` while keeping the same `ref`, `format` and original `offset`.
+
+A task ID alone does not make an oversized inline-only body chunkable: there may be no ref. A synchronous response's `id` is diagnostic identity, not proof that the async result endpoint can retrieve it. Report that limitation instead of repeating the same call indefinitely, inventing a partial-content API or raising server limits automatically.
 
 A submission TIMEOUT/CANCELLED, connection/server failure or unreadable acknowledgement may have created remote work. A stopped result/status/page/reference read does not create new work. Resume a known async task by ID when authorized; an unknown submission outcome requires user review or a real lookup capability, not a second creation request. Error codes, failed pages and pending tasks are separate from successful empty content.
