@@ -11,7 +11,7 @@ python3 -m unittest discover -s tests -v
 python3 scripts/package.py
 ```
 
-The builder writes the optional `nstdata-web-scraping-1.0.0.zip` to `dist/` and prints its SHA-256. Keep `VERSION`, the artifact filename and CHANGELOG aligned. Packaging tests verify reproducibility and extraction; they do not execute a model or the MCP server.
+The builder writes the optional `nstdata-web-scraping-1.0.1.zip` to `dist/` and prints its SHA-256. Keep `VERSION`, the artifact filename and CHANGELOG aligned. Packaging tests verify reproducibility and extraction; they do not execute a model or the MCP server.
 
 Verify the standard installer with Node.js 24 and `skills@1.7.4`:
 
