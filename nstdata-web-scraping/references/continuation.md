@@ -35,8 +35,12 @@ Keep the same reference and format during continuation. Stop on repeated or non-
 
 On `OUTPUT_LIMIT`, inspect `error.recovery` for actual `id`, `taskId`, `crawlId` or format-specific references such as `markdownRef`. Pass a format-specific reference as `ref` with its matching format; preserve any returned `truncated` flag.
 
-- Page list: reread the same `crawlId` and original input cursor with a smaller `limit`, down to 1. Advance only from a successful response whose rows were received; a cursor in `error.recovery` can point past withheld rows. Count rereads against the existing call budget.
+- Page list: reread the same `crawlId` and original input cursor with a smaller `limit`, down to 1. Advance from a successful response whose rows were received. Count rereads against the existing call budget. Flat cursors in `error.recovery` may point past unread rows; keep the original input cursor.
 - Reference: reduce `length` while keeping the same `ref`, `format` and original `offset`.
+
+If a single row still exceeds the cap and `error.recovery.page` is present, treat it as a partial row summary. Preserve its URL, identity, status, errors and `data.truncated`; inspect failed/expired states or `success: false` before reading content. Match the required formats to references in `page.data` and read those references using the rules above, within the remaining call/output budget.
+
+Only after recovering the required content, copy `error.recovery.continuation.nextCursor` into `afterCursor`, or `prevCursor` into `beforeCursor`, to move past that row. Count the recovered page once. If the required reference is missing, reading fails or a budget is exhausted, report the partial result and stop before advancing. The summary does not restore omitted links or metadata. An absent continuation in an error does not establish that the site is complete; compare recovered rows with an already known total, or report that continuation is unknown.
 
 A task ID alone does not make an oversized inline-only body chunkable: there may be no ref. A synchronous response's `id` is diagnostic identity, not proof that the async result endpoint can retrieve it. Report that limitation instead of repeating the same call indefinitely, inventing a partial-content API or raising server limits automatically.
 

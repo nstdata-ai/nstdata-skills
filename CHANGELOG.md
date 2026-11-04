@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1
+
+- Recover oversized single-row results from retained references before using an explicit continuation cursor.
+- Preserve partial-row limitations and existing call budgets; retain same-cursor recovery for earlier MCP responses.
+
 ## 1.0.0
 
 - Support standard project-local installation, replacement and removal for Cursor and Claude Code.
