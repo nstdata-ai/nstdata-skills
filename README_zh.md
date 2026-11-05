@@ -38,7 +38,7 @@ Claude Code 将 `--agent cursor` 替换为 `--agent claude-code`。标准 [skill
   "mcpServers": {
     "nstdata": {
       "command": "npx",
-      "args": ["--yes", "@nstdata-ai/mcp-server@1.0.1"],
+      "args": ["--yes", "@nstdata-ai/mcp-server@1.0.2"],
       "env": {
         "NSTDATA_MODULES": "crawl",
         "NSTDATA_API_TOKEN": "YOUR_CRAWL_API_TOKEN"
