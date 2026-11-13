@@ -15,7 +15,7 @@ Use the configured Nstdata Crawl MCP tools. This skill supplies a workflow, not 
 - Site: read [site traversal](references/continuation.md#site-pages), then call `nstdata_crawl_start` with an explicit `maxPages` within the authorized scope. Pass its returned `id` as `crawlId` to `nstdata_crawl_status` and `nstdata_crawl_pages`.
 - Stored body: `nstdata_crawl_read_result` with the actual returned reference (for example, `data.markdownRef`) passed as `ref`, and the matching `format`. Read [continuation.md](references/continuation.md) before pagination, reference chunks or recovery from output limits.
 
-If required tools are missing, report which tool is unavailable and the local MCP configuration prerequisite. Do setup diagnostics without creating tasks. Credentials belong in the MCP process environment; ask for configuration status rather than secret values. Do not substitute another provider or invent a direct HTTP call.
+If required tools are missing, report which tool is unavailable and check the configured MCP connection without creating tasks. For a local server, check its credential configuration; for a Remote connection, check its authorization status in the client. Ask for connection status, never secret values. Do not substitute another provider or invent a direct HTTP call.
 
 ## Execute within the request
 

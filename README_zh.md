@@ -17,7 +17,7 @@ Skill 提供操作指令，复用你已配置的 Nstdata MCP 和已有授权；�
 
 ## 快速开始
 
-需要 Node.js 24、Git、支持 Agent Skills 的客户端及 Nstdata Crawl API Key。
+下面的安装命令需要 Node.js 24 和 Git。使用 Skill 需要支持 Agent Skills 的客户端，以及已授权的 Nstdata Crawl MCP 连接。
 
 ### 1. 安装 Skill
 
@@ -31,7 +31,9 @@ Claude Code 将 `--agent cursor` 替换为 `--agent claude-code`。标准 [skill
 
 ### 2. 连接 Nstdata MCP
 
-已有 Crawl MCP 配置可直接复用。尚未配置时，将以下条目加入 Cursor 项目的 `.cursor/mcp.json`，保留其他已有条目：
+已有 Crawl MCP 配置可直接复用。使用托管 Crawl 时，通过 Streamable HTTP 连接 `https://mcp.nstdata.io/crawl` 并完成 OAuth 授权，具体见[远程接入指南](https://github.com/nstdata-ai/nstdata-mcp-server/blob/main/docs/remote_zh.md)。远程使用无需启动本地 MCP 进程。
+
+使用本地服务时，将以下条目加入 Cursor 项目的 `.cursor/mcp.json`，保留其他已有条目：
 
 ```json
 {
