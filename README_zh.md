@@ -76,4 +76,11 @@ npx skills remove nstdata-web-scraping --yes
 
 Cursor 已验证标准安装和单页抓取／正文读取工作流。Claude Code 已验证安装，实际 Agent 工作流尚未验收。其他支持 Agent Skills 的客户端需自行配置 MCP 并验证。
 
+## Claude Remote 插件
+
+[Nstdata Crawl 插件](plugins/nstdata-crawl/README.md) 将现有 Skill 与托管 OAuth 连接组合，
+用于 Claude chat、Cowork 和 Claude Code。它复用同一套指令，需要有可用额度的 Nstdata 账号。
+本地检出测试见[插件设置](CONTRIBUTING.md#claude-remote-plugin)。
+请选择插件或单独配置的 Crawl 连接，避免重复工具。
+
 [Cursor Skills](https://cursor.com/docs/skills) · [Claude Code Skills](https://code.claude.com/docs/en/skills) · [贡献说明](CONTRIBUTING.md) · [MIT 许可](LICENSE)

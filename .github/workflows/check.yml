@@ -13,3 +13,4 @@ jobs:
       - run: npm install --prefix "$RUNNER_TEMP/skill-installer" --ignore-scripts --no-audit --no-fund skills@1.7.4
       - run: NSTDATA_SKILLS_CLI="$RUNNER_TEMP/skill-installer/node_modules/skills/bin/cli.mjs" python3 -m unittest discover -s tests -v
       - run: python3 scripts/package.py
+      - run: python3 scripts/package.py --plugin

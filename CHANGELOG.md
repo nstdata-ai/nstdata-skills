@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Add a Claude Remote plugin that bundles the existing skill with the hosted Crawl connection.
+- Generate the plugin's skill files from the canonical source and check their equality before packaging.
+
 ## 1.0.2
 
 - Distinguish local credential configuration from Remote authorization when required Crawl tools are unavailable.

@@ -1,0 +1,12 @@
+{
+  "name": "nstdata-crawl",
+  "displayName": "Nstdata Crawl",
+  "version": "1.0.0",
+  "description": "Retrieve webpages and bounded website content with Nstdata Crawl, including task resumption, pagination and referenced results.",
+  "author": {
+    "name": "Nstdata"
+  },
+  "homepage": "https://github.com/nstdata-ai/nstdata-mcp-server",
+  "repository": "https://github.com/nstdata-ai/nstdata-skills",
+  "license": "MIT"
+}
