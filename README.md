@@ -58,7 +58,7 @@ Start a new client conversation and select `/nstdata-web-scraping`. For example:
 
 > Retrieve https://example.com/ as Markdown. Submit once; if only a Markdown reference is returned, read it using the result-reading tool.
 
-The agent follows the registered tool schemas, preserves source URLs and partial results, and bounds status, pagination and reference calls. Actual requests use your Nstdata account's quota.
+The agent follows the registered tool schemas, preserves source URLs and partial results, and continues authorized reads within a bounded workflow without asking again at each checkpoint. Installing the skill does not update the MCP server or its reading limits. Actual requests use your Nstdata account's quota.
 
 ## Update or remove
 

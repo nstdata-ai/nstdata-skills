@@ -5,6 +5,13 @@
 - Add a Claude Remote plugin that bundles the existing skill with the hosted Crawl connection.
 - Generate the plugin's skill files from the canonical source and check their equality before packaging.
 
+## 1.0.3
+
+- Continue authorized reference reads automatically within a cumulative 16-call, 300-second workflow budget; allow a wider bounded retrieval only when explicitly authorized.
+- Use the connected server's default chunk length and actual nextOffset, preserving compatibility with older input schemas and smaller fitted chunks.
+- Distinguish input/output limits, full-reference download limits, Remote OAuth and upstream API authorization failures; retain existing tasks during recovery.
+- Update the bundled Claude Remote plugin to 1.0.1 with the same instructions.
+
 ## 1.0.2
 
 - Distinguish local credential configuration from Remote authorization when required Crawl tools are unavailable.
