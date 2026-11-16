@@ -76,4 +76,12 @@ Other skills and MCP configuration are preserved.
 
 Cursor has been verified for standard installation and a single-page scrape/content-reading workflow. Claude Code installation has been verified; its actual agent workflow remains unverified. Other Agent Skills clients need their own MCP configuration and verification.
 
+## Claude Remote plugin
+
+The [Nstdata Crawl plugin](plugins/nstdata-crawl/README.md) bundles this skill with the
+hosted OAuth connection for Claude chat, Cowork and Claude Code. It uses the same
+instructions as the standalone skill and requires a Nstdata account with available credits.
+See [local plugin setup](CONTRIBUTING.md#claude-remote-plugin) for checkout-based testing.
+Choose either the plugin or a separately configured Crawl connection to avoid duplicate tools.
+
 [Cursor skills](https://cursor.com/docs/skills) · [Claude Code skills](https://code.claude.com/docs/en/skills) · [Contributing](CONTRIBUTING.md) · [MIT license](LICENSE)

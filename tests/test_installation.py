@@ -73,6 +73,22 @@ class InstallationTests(unittest.TestCase):
             self.assert_skill(installed, project)
             self.assertEqual(other.read_text().splitlines()[-1], 'Keep.')
 
+    def test_plugin_copy_does_not_override_standalone_source(self):
+        with TemporaryDirectory() as temp:
+            root = Path(temp).resolve()
+            source = root / 'source'
+            source.mkdir()
+            shutil.copytree(ROOT / SKILL, source / SKILL)
+            shutil.copytree(ROOT / 'plugins', source / 'plugins')
+            duplicate = source / 'plugins/nstdata-crawl/skills' / SKILL / 'SKILL.md'
+            duplicate.write_text(duplicate.read_text() + '\nChanged generated copy.\n')
+            for agent, location in [('cursor', '.agents/skills'), ('claude-code', '.claude/skills')]:
+                project = root / agent
+                project.mkdir()
+                self.run_cli(project, 'add', str(source), '--skill', SKILL,
+                             '--agent', agent, '--yes')
+                self.assert_skill(project / location / SKILL, project)
+
     def test_remove_preserves_other_project_files(self):
         with TemporaryDirectory() as temp:
             project = Path(temp).resolve()
