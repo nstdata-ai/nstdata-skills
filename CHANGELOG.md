@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2
+
+- Distinguish local credential configuration from Remote authorization when required Crawl tools are unavailable.
+- Document hosted OAuth setup alongside the existing local MCP configuration.
+
 ## 1.0.1
 
 - Recover oversized single-row results from retained references before using an explicit continuation cursor.

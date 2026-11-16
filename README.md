@@ -17,7 +17,7 @@ The skill supplies instructions. It uses your configured Nstdata MCP server and 
 
 ## Get started
 
-Requires Node.js 24, Git, an Agent Skills client and a Nstdata Crawl API key.
+The installer below requires Node.js 24 and Git. Using the skill requires an Agent Skills client and an authorized Nstdata Crawl MCP connection.
 
 ### 1. Install the skill
 
@@ -31,7 +31,9 @@ For Claude Code, replace `--agent cursor` with `--agent claude-code`. The standa
 
 ### 2. Connect Nstdata MCP
 
-If Crawl MCP is already configured, keep that configuration. Otherwise, add this entry to the Cursor project's `.cursor/mcp.json`, preserving other entries:
+If Crawl MCP is already configured, keep that configuration. For hosted Crawl, connect to `https://mcp.nstdata.io/crawl` over Streamable HTTP and authorize through OAuth; follow the [Remote setup guide](https://github.com/nstdata-ai/nstdata-mcp-server/blob/main/docs/remote.md). Remote use does not require a local MCP process.
+
+For a local server, add this entry to the Cursor project's `.cursor/mcp.json`, preserving other entries:
 
 ```json
 {
