@@ -40,7 +40,7 @@ For a local server, add this entry to the Cursor project's `.cursor/mcp.json`, p
   "mcpServers": {
     "nstdata": {
       "command": "npx",
-      "args": ["--yes", "@nstdata-ai/mcp-server@1.0.3"],
+      "args": ["--yes", "@nstdata-ai/mcp-server@1.0.5"],
       "env": {
         "NSTDATA_MODULES": "crawl",
         "NSTDATA_API_TOKEN": "YOUR_CRAWL_API_TOKEN"
