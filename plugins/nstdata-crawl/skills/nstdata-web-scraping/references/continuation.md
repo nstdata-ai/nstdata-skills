@@ -24,19 +24,25 @@ The default server maxPages is configurable. Supply the user's explicit bound wh
 Read only refs returned by the user's authorized task. They are opaque identifiers, not public download URLs. Match markdownRef→markdown, htmlRef→html, pdfRef→pdf, screenshotRef→screenshot, rawDataRef→rawData. Keep Key handling inside MCP.
 
 ```json
-{"ref":"RETURNED_MARKDOWN_REF","format":"markdown","offset":0,"length":2000}
+{"ref":"RETURNED_MARKDOWN_REF","format":"markdown","offset":0}
 ```
 
-Continue with exactly `nextOffset` until absent, or stop at the agreed call/output limit. Text offsets/total count Unicode code points; binary offsets count bytes and output is base64. Decode binary chunks individually before concatenating bytes; joining padded base64 strings does not reconstruct the file. Each chunk call downloads the whole reference again, subject to the response-byte limit. It is not a network Range request or a persistent local cache.
+Prefer omitting `length` to use the connected server's default. Use an explicit value only within the actual registered schema. Servers supporting the newer reading behavior default to 8000 and cap actual chunks at 16000; earlier servers may default to 2000 and reject values above 4000. Installing this skill does not upgrade MCP or change the deployed server. A server may return less than the requested length to fit its final JSON output budget, including JSON escaping and binary base64 overhead.
 
-Keep the same reference and format during continuation. Stop on repeated or non-increasing offsets, unknown units or unexpected encoding. Check that returned chunk length, offsets and total are consistent (using code points for text, decoded bytes for binary); preserve available data but report contradictory metadata and withhold a completeness claim. A missing body is different from an empty body. Return the available portion and nextOffset when stopping early; never describe a prefix as the complete document.
+Continue automatically with exactly the returned `nextOffset` until absent, or stop at the agreed workflow/output limit. Never calculate it from requested `length`: use the actual chunk and returned continuation. Text offsets/total count Unicode code points; binary offsets count bytes and output is base64. Decode binary chunks individually before concatenating bytes; joining padded base64 strings does not reconstruct the file. Each chunk call downloads the whole reference again, subject to the response-byte limit. It is not a network Range request or a persistent local cache.
+
+Keep the same reference and format during continuation. Stop on repeated or non-increasing offsets, unknown units or unexpected encoding. Offsets and total count original source content; display redaction can change the returned text length, so that difference alone is not contradictory metadata. Check source offsets/total for consistency, preserve available data and report genuine contradictions without claiming completeness. A missing body is different from an empty body. Return the available portion and nextOffset when stopping early; never describe a prefix as the complete document.
 
 ## Output limits and errors
 
 On `OUTPUT_LIMIT`, inspect `error.recovery` for actual `id`, `taskId`, `crawlId` or format-specific references such as `markdownRef`. Pass a format-specific reference as `ref` with its matching format; preserve any returned `truncated` flag.
 
 - Page list: reread the same `crawlId` and original input cursor with a smaller `limit`, down to 1. Advance from a successful response whose rows were received. Count rereads against the existing call budget. Flat cursors in `error.recovery` may point past unread rows; keep the original input cursor.
-- Reference: reduce `length` while keeping the same `ref`, `format` and original `offset`.
+- Reference: if the server returns `OUTPUT_LIMIT` instead of a fitted chunk, reduce `length` while keeping the same `ref`, `format` and original `offset`. Count these reads against the existing budget; keep a successful smaller length during continuation.
+
+An invalid `length` is an input error, not an expired authorization. Check the active schema, omit the optional length or supply a legal smaller value, and retry the saved read within the remaining budget. On `RESPONSE_LIMIT`, the full reference exceeded the download-byte limit before slicing; a smaller length cannot fix it. Preserve the reference and offset, report the limit and stop repeated downloads. Treat `SENSITIVE_OUTPUT` as withheld sensitive content, not a size error to work around. A shorter chunk can also enforce credential protection: follow a returned continuation, but never change offsets, formats or limits to expose content withheld by a safety boundary.
+
+Remote HTTP 401 and a Crawl tool's `AUTHORIZATION_FAILED` are different failures. For Remote OAuth, use the client's supported credential refresh; reconnect interactively only when required by the client. After access is restored, resume the saved task/reference and cursor/offset within the remaining budget. A tool's `AUTHORIZATION_FAILED` can reject the upstream API key or its access; report it for account/key resolution through the normal protected setup rather than repeatedly reconnecting OAuth. Never request a key in conversation, replace known work with a new submission, or reset the workflow budget during authorization recovery.
 
 If a single row still exceeds the cap and `error.recovery.page` is present, treat it as a partial row summary. Preserve its URL, identity, status, errors and `data.truncated`; inspect failed/expired states or `success: false` before reading content. Match the required formats to references in `page.data` and read those references using the rules above, within the remaining call/output budget.
 

@@ -1,7 +1,7 @@
 {
   "name": "nstdata-crawl",
   "displayName": "Nstdata Crawl",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Retrieve webpages and bounded website content with Nstdata Crawl, including task resumption, pagination and referenced results.",
   "author": {
     "name": "Nstdata"

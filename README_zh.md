@@ -58,7 +58,7 @@ Claude Code 将 `--agent cursor` 替换为 `--agent claude-code`。标准 [skill
 
 > 将 https://example.com/ 读取为 Markdown。只提交一次；若仅返回 Markdown 引用，使用结果读取工具读取正文。
 
-Agent 使用实际注册的工具 schema，保留来源 URL 和部分结果，并限制状态查询、分页及引用读取次数。真实请求使用你的 Nstdata 账号额度。
+Agent 使用实际注册的工具 schema，保留来源 URL 和部分结果，在有界工作流内自动接续已授权读取，不在每个检查点重复确认。安装 Skill 不会更新 MCP 服务或其读取限额。真实请求使用你的 Nstdata 账号额度。
 
 ## 更新或移除
 
