@@ -4,6 +4,23 @@
 
 在支持 Agent Skills 的客户端中，通过 Nstdata Crawl MCP 获取网页内容。
 
+## 用一句话接入云托管 MCP
+
+复制下面这句话到你正在使用的 Agent：
+
+```text
+请按下面的说明在当前客户端接入 Nstdata Crawl MCP：
+https://raw.githubusercontent.com/nstdata-ai/nstdata-skills/main/nstdata-mcp-onboarding/SKILL.md
+```
+
+[接入 Skill](nstdata-mcp-onboarding/SKILL.md)会指导 Agent 注册云端地址并检查工具是否可用。浏览器弹出 OAuth 授权页后，在 Nstdata 页面输入你的 API Key 并完成授权。也可以在终端查看接入说明：
+
+```sh
+curl -fsSL https://github.com/nstdata-ai/nstdata-skills/raw/main/nstdata-mcp-onboarding/SKILL.md
+```
+
+这条终端命令会显示说明。接入后，日常抓取和任务接续可使用 [`nstdata-web-scraping`](nstdata-web-scraping/SKILL.md)。
+
 ## 功能
 
 | 工作流 | 行为 |

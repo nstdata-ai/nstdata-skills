@@ -4,6 +4,23 @@
 
 Retrieve webpage content through Nstdata Crawl MCP from an Agent Skills client.
 
+## Connect hosted MCP with a prompt
+
+Paste this into your agent to set up the hosted connection in its current client:
+
+```text
+Connect Nstdata Crawl MCP in this client using the instructions at
+https://raw.githubusercontent.com/nstdata-ai/nstdata-skills/main/nstdata-mcp-onboarding/SKILL.md
+```
+
+The [onboarding skill](nstdata-mcp-onboarding/SKILL.md) helps the agent register the hosted endpoint and check tool availability. Complete browser OAuth when prompted using your Nstdata API key on the authorization page. To inspect the instructions in a terminal:
+
+```sh
+curl -fsSL https://github.com/nstdata-ai/nstdata-skills/raw/main/nstdata-mcp-onboarding/SKILL.md
+```
+
+The terminal command displays the instructions. After connecting, use [`nstdata-web-scraping`](nstdata-web-scraping/SKILL.md) for everyday Crawl workflows.
+
 ## Capabilities
 
 | Workflow | Behavior |
