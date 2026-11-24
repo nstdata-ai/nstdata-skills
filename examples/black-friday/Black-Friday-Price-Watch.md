@@ -9,7 +9,7 @@ A UK shopper looking at GTA VI on November 24 would have paid **£20 more** for 
 
 That’s a useful Black Friday question for anyone tracking a competitor across markets. Give your AI agent the products and stores you care about. **Nstdata Crawl** reads the listings. The **Price Watch Skill** tells the agent which prices to compare, what counts as a promotion, and how to show the evidence. You can run your first check from chat.
 
-[Download the eight-market GTA VI report](https://github.com/nstdata-ai/nstdata-skills/raw/refs/heads/main/downloads/GTA-VI-Price-Watch.html) and open the HTML file in your browser.
+[Download the eight-market GTA VI report (ZIP)](https://github.com/nstdata-ai/nstdata-skills/raw/refs/heads/main/downloads/GTA-VI-Price-Watch.zip), then unzip it and open the HTML file in your browser.
 
 ## Step 1 · Connect Nstdata Crawl to your agent
 
@@ -49,7 +49,7 @@ Here are three of the eight PlayStation Store markets in our **November 24, 2026
 | Brazil | R$449.90 | R$549.90 | +R$100.00 (+22.2%) |
 | Japan | ¥9,800 | ¥12,280 | +¥2,480 (+25.3%) |
 
-In the demo, choose **Compare two markets**, switch Brazil to **Japan**, then open **View the store evidence** to inspect the original listings. None of the eight checked listings showed a Black Friday sale label in that snapshot. The recorded prices give you a baseline for the next check. [Download the interactive report](https://github.com/nstdata-ai/nstdata-skills/raw/refs/heads/main/downloads/GTA-VI-Price-Watch.html)
+In the demo, choose **Compare two markets**, switch Brazil to **Japan**, then open **View the store evidence** to inspect the original listings. None of the eight checked listings showed a Black Friday sale label in that snapshot. The recorded prices give you a baseline for the next check. [Download the interactive report](https://github.com/nstdata-ai/nstdata-skills/raw/refs/heads/main/downloads/GTA-VI-Price-Watch.zip)
 
 If your agent supports scheduled MCP calls and can retain earlier results, try this follow-up:
 
