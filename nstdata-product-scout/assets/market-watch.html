@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light"><title>$title · Nstdata Crawl</title>
+<style>
+:root {
+  --ink:#181921; --dim:#5a5b68; --rule:#d9d8de; --base:#f8f8f5;
+  --iris:#4737b5; --acid:#e2fc85; --violet:#c4b6ff;
+  --display:"Helvetica Neue",Inter,Arial,sans-serif;
+  --mono:"SFMono-Regular","IBM Plex Mono",Menlo,Consolas,monospace;
+  font:16px/1.45 var(--display);color:var(--ink);background:var(--base);
+}
+*{box-sizing:border-box}body{margin:0}button,a,summary{touch-action:manipulation}
+button{font:inherit;color:inherit;cursor:pointer}a{color:var(--iris);text-underline-offset:.22em}
+:focus-visible{outline:3px solid #8069f5;outline-offset:4px}
+[hidden]{display:none!important}.shell{width:min(100% - 72px,1264px);margin:auto}
+.masthead{background:var(--base);border-bottom:1px solid var(--rule)}
+.masthead .shell,.brand,.topnav,.market-name,.hero-actions,.stage-controls,.dialog-bar{display:flex;align-items:center}
+.masthead .shell{min-height:65px;justify-content:space-between;gap:12px}
+.brand{gap:9px;font-size:23px;letter-spacing:-.065em;font-weight:750}.brand img{width:31px;height:31px}.brand em{font-style:normal;font-weight:400;letter-spacing:-.03em;color:var(--dim);padding-left:10px;border-left:1px solid #ccc}
+.topnav{gap:24px}.topnav a{font-size:13px;font-weight:570;color:var(--ink);text-decoration:none}.topnav a:hover,.original:hover,.source-jump:hover{text-decoration:underline}
+main{padding-block:22px 35px}.hero{position:relative;isolation:isolate;display:grid;grid-template-columns:1.2fr 1fr;min-height:345px;overflow:hidden;background:#191a20;border-radius:23px}
+.hero-copy{align-self:center;padding:clamp(26px,3.6vw,53px);color:#fdfcf8}
+.eyebrow,.market-code,.source-basis,.meta,.state,.calendar-title>span,.stage-counter{font-family:var(--mono);font-weight:550;letter-spacing:.04em}
+.eyebrow{font-size:12px;color:var(--acid);text-transform:uppercase;letter-spacing:.105em;display:flex;align-items:center;gap:9px;margin:0 0 19px}
+.eyebrow:before{content:"";width:21px;height:11px;background:repeating-linear-gradient(120deg,transparent 0 3px,var(--acid) 3px 5px)}
+h1,h2,h3,p,figure,dl,dd{margin:0}h1,h2,h3{line-height:1.02;letter-spacing:-.05em}
+h1{font-size:clamp(39px,4.6vw,72px);font-weight:620;text-wrap:balance}
+.contents{font-size:clamp(14px,1.2vw,17px);color:#d5d5db;max-width:500px;margin:16px 0 23px}
+.hero-actions{flex-wrap:wrap;gap:13px 16px}.watch-button{border:0;border-radius:100px;background:var(--acid);color:#202516;font-size:13px;font-weight:700;padding:12px 18px;display:none;align-items:center;gap:9px}.js .watch-button{display:inline-flex}.watch-button:hover{background:#efffb3}.play{font-size:12px}.meta{font-size:10px;font-weight:500;color:#c4c5cd}
+.art,.stage-art{background-color:#c5b8fc;background-image:radial-gradient(ellipse at 70% 10%,#f1e8fc 0%,transparent 57%),linear-gradient(140deg,#9284ce,#c1aeef 56%,#9d8bd1);display:grid;place-items:center;position:relative;isolation:isolate;overflow:hidden}
+.art:before,.stage-art:before{content:"";position:absolute;inset:-40%;z-index:-1;background:repeating-radial-gradient(ellipse at 95% 20%,transparent 0 27px,#ffffff53 28px,transparent 29px 51px);transform:rotate(-9deg)}
+.art:after,.stage-art:after{content:"";position:absolute;z-index:-1;width:72%;height:16%;bottom:9%;border-radius:50%;background:linear-gradient(177deg,#f9f2ffcc,#b1a1d6 70%);box-shadow:0 8px 0 -1px #9384b8,0 18px 26px #5446754a}
+.art figure,.stage-art figure{width:83%;height:100%;display:grid;place-items:center;z-index:1}
+.art img,.stage-art img{display:block;max-width:93%;width:auto;height:clamp(205px,21.2vw,302px);object-fit:contain;filter:drop-shadow(1px 9px 6px #32254e48)}
+.without-photo{display:block;min-height:0}.without-photo .art{display:none}
+section[id],details[id]{scroll-margin-top:16px}.row-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin:30px 0 18px}
+h2{font-size:clamp(26px,2.35vw,36px);font-weight:640}.deck{max-width:710px;color:var(--dim);font-size:15px;line-height:1.45;margin-top:8px}
+.filters{display:none;align-items:center;border:1px solid var(--rule);border-radius:99px;padding:3px;flex:none}.js .filters:has(button){display:flex}
+.filters button{background:transparent;border:0;padding:8px 14px;border-radius:20px;font-size:12px;font-weight:600}.filters button[aria-pressed="true"]{background:#24252e;color:white}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:13px;align-items:stretch}
+.market{min-width:0;background:#fff;border:1px solid var(--rule);border-radius:17px;padding:22px 22px 17px;display:flex;flex-direction:column;position:relative;transition:border-color .2s,box-shadow .2s}
+.market:hover,.market:focus-within{border-color:#b2a4d5;box-shadow:0 6px 17px #20184009}
+.market-name{gap:9px}.market-code{margin-left:auto;font-size:10px;color:#716e78}.flag{font-size:20px;line-height:1}
+.market h3{font-size:19px;font-weight:650;letter-spacing:-.035em}.market-open{color:inherit;text-decoration:none}.market-open:hover{text-decoration:underline}
+.price{width:max-content;max-width:100%;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;text-decoration:none;color:var(--ink);margin:19px 0 4px;font-variant-numeric:tabular-nums}.price:hover strong{text-decoration:underline;text-decoration-thickness:2px}
+.price strong{font-size:clamp(38px,3.35vw,55px);line-height:1;letter-spacing:-.075em;font-weight:580}.price small{font-size:12px;letter-spacing:.035em;color:var(--dim);font-family:var(--mono)}
+.no-price{font-size:24px}.basis{font-size:12px;color:var(--dim);display:flex;align-items:center;gap:7px}
+.basis i{width:7px;height:7px;border-radius:50%;background:#83818b}.basis .promotion{background:#568841}.basis .listing{background:#8276ae}
+.finding{font-size:15px;line-height:1.42;margin:15px 0 17px}.market dl{margin:auto 0 9px;padding-top:10px;border-top:1px solid var(--rule)}
+.market dl div,.stage-facts div{display:flex;justify-content:space-between;gap:10px;font-size:12px;line-height:1.45;padding:2px 0}.market dt,.stage-facts dt{color:var(--dim)}dd{text-align:right}.market dl:empty,.stage-facts:empty{display:none}
+.source-jump,.original{font-size:13px;font-weight:650;text-decoration:none}.source-jump{align-self:flex-start}
+.note{font-size:12px;color:var(--dim);margin:10px 0 0}.note:empty{display:none}
+.calendar{margin-top:25px;padding:23px 25px;background:#efeee9;border-radius:16px}.calendar-title,.calendar ul li,.schedule header,summary{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.calendar h2,.lower h2{font-size:23px}.calendar-title>span{font-size:10px;color:var(--dim)}.calendar ul{margin:16px 0 0;padding:0;list-style:none}
+.calendar ul li{display:grid;grid-template-columns:120px minmax(0,1fr) 155px;gap:16px;padding:5px 0;font-size:13px}
+.calendar li>small{text-align:right;font:11px var(--mono);color:var(--dim)}.track{height:10px;position:relative;border-radius:4px;background:repeating-linear-gradient(90deg,#c5c3cb 0 1px,transparent 1px 6%);overflow:hidden}
+.track b{position:absolute;inset-block:0;background:#8472c7;border-radius:4px}.calendar li:nth-child(even) .track b{background:#4d477c}
+.lower{display:grid;grid-template-columns:1.55fr .85fr;gap:16px;margin-top:18px}.evidence,.schedule{border-radius:16px;padding:22px 24px;min-width:0}.evidence{background:white;border:1px solid var(--rule)}.lower h2{margin-bottom:14px}.schedule{background:#e8e3f6;align-self:start}.schedule h2{margin:0}.state{display:inline-block;font-size:10px;padding:3px 8px;border:1px solid #b7a9d5;border-radius:20px;color:#44365f}.cadence{font-size:22px;letter-spacing:-.045em;margin:14px 0 5px}.schedule small,.source-body{font-size:13px;color:var(--dim)}
+details{border-top:1px solid var(--rule)}summary{cursor:pointer;list-style:none;padding:12px 0}summary::-webkit-details-marker{display:none}summary:after{content:"+";color:var(--iris);font-size:18px}details[open]>summary:after{content:"−"}
+.source-title{flex:1;font-size:14px;font-weight:600}.source-title small{display:block;font-weight:400;color:var(--dim)}.source-basis{font-size:10px;color:var(--dim)}.source-body{padding-bottom:14px}.source-body blockquote{margin:8px 0;padding-left:12px;border-left:2px solid var(--violet);color:var(--ink)}
+mark{background:var(--acid);color:#252819;padding:0 2px;border-radius:2px}code{font-family:var(--mono);font-size:10px;overflow-wrap:anywhere}.task{margin-bottom:7px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+dialog{margin:auto;border:0;border-radius:24px;color:var(--ink);width:min(930px,calc(100% - 36px));max-height:92dvh;padding:0;background:#f9f9f6;box-shadow:0 30px 120px #09081966}
+dialog[open]{animation:arrive .25s ease-out}dialog::backdrop{background:#11101ec4}body:has(dialog[open]){overflow:hidden}
+.dialog-bar{justify-content:space-between;padding:15px 22px;border-bottom:1px solid var(--rule)}
+.dialog-bar .brand{font-size:18px;letter-spacing:-.05em}.dialog-bar .brand img{width:23px;height:23px}.dialog-bar .brand em{font-size:15px}
+.icon-button,.close{background:white;border:1px solid #d5d2d9;border-radius:50%;width:36px;height:36px;display:grid;place-items:center;font-size:19px;line-height:1}.icon-button:disabled{opacity:.35;cursor:default}
+.stage{display:grid;grid-template-columns:1.2fr .8fr;min-height:310px}.stage-copy{padding:clamp(20px,3vw,35px);min-width:0;align-self:center}
+.stage-market{font-size:clamp(25px,3vw,42px);font-weight:580}.stage-product{color:var(--dim);font-size:13px;margin:6px 0 18px}
+.stage-price{display:inline-flex;align-items:baseline;gap:7px;flex-wrap:wrap;border:0;padding:0 1px;background:transparent;color:inherit;max-width:100%;text-align:left;line-height:1.05}.stage-price strong{font-size:clamp(45px,5.3vw,76px);font-weight:570;letter-spacing:-.075em}.stage-price small{font:12px var(--mono)}
+.stage-basis{font-size:12px;color:var(--dim);margin:3px 0 12px}.stage-finding{font-size:clamp(16px,1.4vw,20px);line-height:1.35;letter-spacing:-.02em}.stage-facts{margin-top:13px}
+.stage-art{--tone:#c8bcf7;background-color:var(--tone);background-image:radial-gradient(ellipse at 65% 5%,#ffffff88,transparent 65%),linear-gradient(145deg,transparent,#4c395f32)}
+.stage-art:after{width:72%;bottom:12%}.stage-art figure{width:90%}.stage-art img{max-width:80%;height:clamp(150px,18vw,240px)}.stage-code{font:600 11px var(--mono);letter-spacing:.09em;position:absolute;top:16px;right:18px}
+.stage.no-art{grid-template-columns:1fr}.stage.no-art .stage-art{display:none}
+.stage-controls{padding:13px 22px;gap:12px;border-top:1px solid var(--rule)}.evidence-toggle{border:0;color:white;background:#25242d;border-radius:26px;padding:10px 15px;font-size:13px;font-weight:580}.stage-counter{margin-left:auto;font-size:11px}.stage-controls .icon-button+.icon-button{margin-left:-7px}
+.slide-proof{padding:14px 24px 19px;background:#efeee8}.slide-proof p{font-size:12px;color:var(--dim)}.slide-proof blockquote{margin:8px 0;font-size:17px;line-height:1.4;letter-spacing:-.02em}.slide-proof .original{display:inline-block;margin-top:3px}.incoming{animation:arrive .28s cubic-bezier(.16,1,.3,1)}@keyframes arrive{from{opacity:.65;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:850px){.shell{width:calc(100% - 36px)}.row-heading{align-items:start;flex-direction:column;gap:12px}.hero{min-height:285px}.grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,208px),1fr))}.market{padding:18px}.topnav{gap:16px}}
+@media(max-width:620px){.shell{width:calc(100% - 24px)}.masthead .shell{min-height:52px}.brand{font-size:19px}.brand img{width:25px;height:25px}.topnav a{font-size:12px}.topnav a:first-child{display:none}main{padding-top:12px}.hero{grid-template-columns:63% 37%;border-radius:17px;min-height:226px}.hero-copy{padding:23px 12px 23px 17px}.eyebrow{font-size:9px;letter-spacing:.05em;gap:5px;margin-bottom:10px}.eyebrow:before{width:14px}.hero h1{font-size:clamp(26px,6vw,38px)}.contents{font-size:12px;margin:9px 0 13px}.hero-actions{gap:6px}.watch-button{padding:8px 10px;font-size:11px}.meta{font-size:9px}.art figure{width:96%}.art img{max-width:92%;height:auto;max-height:170px}.art:after{bottom:20%;height:7%}.row-heading{margin:22px 0 12px}.grid{grid-template-columns:1fr}.deck{font-size:14px}.calendar,.evidence,.schedule{padding:17px}.calendar ul li{grid-template-columns:1fr 1.4fr;gap:3px 8px;margin-top:5px}.track{grid-column:1/-1;grid-row:auto;order:1;height:7px}.calendar ul li small{grid-column:2;grid-row:1}.calendar li>span:first-child{grid-column:1;grid-row:1}.calendar-title>span{font-size:9px}.lower{grid-template-columns:1fr}.stage{grid-template-columns:1fr;min-height:auto}.stage-copy{padding:20px}.stage-art{display:none}.dialog-bar,.stage-controls{padding:12px 16px}.stage-controls{gap:9px}.slide-proof{padding:14px 17px}.stage-controls .icon-button{width:32px;height:32px}.slide-proof blockquote{font-size:15px}.source-basis{font-size:9px}}
+@media(max-width:620px){
+  .stage{position:relative}
+  .stage:not(.no-art) .stage-art{display:grid;position:absolute;right:15px;top:16px;width:72px;height:76px;border-radius:9px}
+  .stage-art .stage-code{display:none}.stage-art img{height:55px;max-width:100%}
+  .stage:not(.no-art) .stage-market,.stage:not(.no-art) .stage-product{padding-right:78px}
+  .stage:not(.no-art) .stage-product{min-height:28px}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+@media print{.topnav,.filters,.watch-button,.source-jump,dialog{display:none!important}.market[hidden]{display:flex!important}.hero,.art,.track,.track b{print-color-adjust:exact}.market,details,.calendar{break-inside:avoid}}
+</style>
+</head><body>
+<header class="masthead"><div class="shell"><div class="brand"><img src="data:image/png;base64,$mark" alt="">Nstdata <em>Crawl</em></div>
+<nav class="topnav" aria-label="Report"><a href="#comparison">Prices</a><a href="#sources">Sources</a><a href="#schedule">Schedule</a></nav></div></header>
+<main class="shell">
+<section class="hero $picture_class" aria-labelledby="product"><div class="hero-copy"><p class="eyebrow">$campaign</p><h1 id="product">$name</h1><p class="contents">$contents</p>
+<div class="hero-actions"><button id="present" class="watch-button" type="button" hidden><span class="play" aria-hidden="true">▶</span> Present markets</button><div class="meta">$market_count $market_label · $checked</div></div></div><div class="art">$photo</div></section>
+<section id="comparison" aria-labelledby="compare"><div class="row-heading"><div><h2 id="compare">Market comparison</h2><p class="deck">$summary</p></div><div class="filters" role="group" aria-label="Filter markets">$filters</div></div>
+<div class="grid">$cards</div><span class="sr" role="status" id="count"></span><p class="note">$note</p></section>
+$calendar
+<div class="lower"><section class="evidence" id="sources"><h2>Crawl sources</h2>$records</section>
+<section class="schedule" id="schedule"><header><h2>Watch schedule</h2><span class="state">$state</span></header><p class="cadence">$schedule_title</p><small>$schedule_note</small></section></div>
+</main>
+<dialog id="show" aria-labelledby="stage-market">
+<div class="dialog-bar"><div class="brand"><img src="data:image/png;base64,$mark" alt="">Nstdata <em>Crawl</em></div><button class="close" type="button" aria-label="Close presentation">×</button></div>
+<div class="stage"><div class="stage-copy"><h2 class="stage-market" id="stage-market"></h2><p class="stage-product">$name</p>
+<button class="stage-price" type="button" aria-label="Show price evidence" aria-expanded="false" aria-controls="slide-proof"></button><p class="stage-basis"></p>
+<p class="stage-finding"></p><dl class="stage-facts"></dl></div><div class="stage-art"><span class="stage-code"></span></div></div>
+<div class="stage-controls"><button type="button" class="evidence-toggle" aria-controls="slide-proof" aria-expanded="false">Show evidence</button>
+<span class="stage-counter" aria-live="polite"></span><button class="icon-button prev" type="button" aria-label="Previous market">←</button><button class="icon-button next" type="button" aria-label="Next market">→</button></div>
+<div id="slide-proof" class="slide-proof" hidden></div>
+</dialog>
+<script>
+document.documentElement.classList.add('js');
+const buttons = Array.from(document.querySelectorAll('[data-filter]'));
+const cards = Array.from(document.querySelectorAll('.market'));
+for (const button of buttons) {
+  button.addEventListener('click', () => {
+    for (const other of buttons) other.setAttribute('aria-pressed', String(button === other));
+    for (const card of cards) card.hidden = button.dataset.filter !== 'all' && card.dataset.kind !== button.dataset.filter;
+    document.querySelector('#count').textContent = 'Markets shown: ' + cards.filter(card => !card.hidden).length;
+  });
+}
+function revealSource() {
+  const target = document.getElementById(location.hash.slice(1));
+  if (target && target.tagName === 'DETAILS') target.open = true;
+}
+for (const link of document.querySelectorAll('.source-jump')) {
+  link.addEventListener('click', () => { document.getElementById(link.hash.slice(1)).open = true; });
+}
+window.addEventListener('hashchange', revealSource);
+revealSource();
+
+const dialog = document.querySelector('#show');
+const present = document.querySelector('#present');
+const stage = dialog.querySelector('.stage');
+const proof = dialog.querySelector('.slide-proof');
+const toggle = dialog.querySelector('.evidence-toggle');
+const price = dialog.querySelector('.stage-price');
+const prev = dialog.querySelector('.prev');
+const next = dialog.querySelector('.next');
+const figure = document.querySelector('.art figure');
+const accents = ['#c4b5ed','#c4dda6','#a9d0e5'];
+let sequence = [];
+let current = 0;
+if (figure) dialog.querySelector('.stage-art').append(figure.cloneNode(true));
+else stage.classList.add('no-art');
+function setEvidence(visible) {
+  proof.hidden = !visible;
+  for (const control of [toggle, price]) control.setAttribute('aria-expanded', String(visible));
+  price.setAttribute('aria-label',visible ? 'Hide price evidence' : 'Show price evidence');
+  toggle.textContent = visible ? 'Hide evidence' : 'Show evidence';
+}
+function display(index, showProof = false) {
+  if (index < 0 || index >= sequence.length) return;
+  current = index;
+  const card = sequence[index];
+  const record = document.getElementById(card.dataset.source);
+  dialog.querySelector('.stage-market').textContent = card.querySelector('h3').textContent;
+  dialog.querySelector('.stage-code').textContent = card.dataset.code;
+  dialog.querySelector('.stage-art').style.setProperty('--tone', accents[cards.indexOf(card) % accents.length]);
+  dialog.querySelector('.stage-basis').textContent = card.querySelector('.basis').textContent;
+  dialog.querySelector('.stage-finding').textContent = card.querySelector('.finding').textContent;
+  function copyContent(from, to) { to.replaceChildren(...Array.from(from.childNodes,node => node.cloneNode(true))); }
+  copyContent(card.querySelector('.price'),price);
+  copyContent(card.querySelector('dl'),dialog.querySelector('.stage-facts'));
+  copyContent(record.querySelector('.source-body'),proof);
+  const publisher = record.querySelector('.source-title small').textContent;
+  if (publisher) proof.querySelector('p').prepend(publisher + ' · ');
+  dialog.querySelector('.stage-counter').textContent = (index + 1) + ' / ' + sequence.length;
+  prev.disabled = index === 0;
+  next.disabled = index === sequence.length - 1;
+  setEvidence(showProof);
+  stage.classList.remove('incoming');
+  void stage.offsetWidth;
+  stage.classList.add('incoming');
+}
+function openMarket(card, evidence) {
+  sequence = cards.filter(item => !item.hidden);
+  if (!sequence.length) return;
+  display(Math.max(0,sequence.indexOf(card)),evidence);
+  dialog.showModal();
+}
+if (cards.length && typeof dialog.showModal === 'function') {
+  present.hidden = false;
+  present.addEventListener('click',() => openMarket(null,false));
+  for (const card of cards) for (const link of card.querySelectorAll('.market-open,.price')) {
+    link.addEventListener('click',event => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      openMarket(card,link.classList.contains('price'));
+    });
+  }
+}
+dialog.querySelector('.close').addEventListener('click',()=>dialog.close());
+for (const control of [toggle,price]) control.addEventListener('click',()=>setEvidence(proof.hidden));
+prev.addEventListener('click',()=>display(current-1));
+next.addEventListener('click',()=>display(current+1));
+dialog.addEventListener('keydown',event=>{
+  if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+    event.preventDefault();
+    display(current + (event.key === 'ArrowRight' ? 1 : -1));
+  }
+});
+</script></body></html>
