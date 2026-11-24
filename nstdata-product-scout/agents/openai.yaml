@@ -1,0 +1,4 @@
+interface:
+  display_name: "Nstdata Product Scout"
+  short_description: "Compare regional prices in a downloadable market report"
+  default_prompt: "Use $nstdata-product-scout to compare the Nintendo Switch 2 Mario Kart World bundle in the US, Canada and UK with Nstdata Crawl and return a downloadable HTML report."

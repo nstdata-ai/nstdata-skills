@@ -4,6 +4,10 @@
 
 在支持 Agent Skills 的客户端中，通过 Nstdata Crawl MCP 获取网页内容。
 
+## 跨市场商品查价
+
+用 Product Scout 比较同一商品在不同市场的售价，或查看同一市场里两个版本的差价。结果保留当地币种、查价时间和商店链接，支持下载英文交互式 HTML 报告。[安装与示例提示词](nstdata-product-scout/README.md) · [黑五查价实例](examples/black-friday/Black-Friday-Price-Watch.md)
+
 ## 用一句话接入云托管 MCP
 
 复制下面这句话到你正在使用的 Agent：

@@ -4,6 +4,10 @@
 
 Retrieve webpage content through Nstdata Crawl MCP from an Agent Skills client.
 
+## Compare product prices
+
+Use Product Scout to check regional listings, compare editions in local currency and download an English HTML report with store evidence. [Installation and example prompt](nstdata-product-scout/README.md) · [Black Friday walkthrough](examples/black-friday/Black-Friday-Price-Watch.md)
+
 ## Connect hosted MCP with a prompt
 
 Paste this into your agent to set up the hosted connection in its current client:
