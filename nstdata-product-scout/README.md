@@ -20,4 +20,4 @@ npx skills add nstdata-ai/nstdata-skills --skill nstdata-product-scout --agent c
 
 For a recurring watch, specify a time zone and ask your agent to confirm the next run. This requires a scheduler that can call Crawl and keep previous observations.
 
-[Read the worked Black Friday example](../examples/black-friday/Black-Friday-Price-Watch.md) · [Download its eight-market HTML report](https://github.com/nstdata-ai/nstdata-skills/raw/refs/heads/main/downloads/GTA-VI-Price-Watch.html) · [Read the agent instructions](SKILL.md)
+[Read the worked Black Friday example](../examples/black-friday/Black-Friday-Price-Watch.md) · [Download its eight-market HTML report (ZIP)](https://github.com/nstdata-ai/nstdata-skills/raw/refs/heads/main/downloads/GTA-VI-Price-Watch.zip) · [Read the agent instructions](SKILL.md)
