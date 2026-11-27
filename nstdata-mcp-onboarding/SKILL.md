@@ -6,7 +6,7 @@ license: MIT
 
 # Connect Nstdata Crawl MCP
 
-Use `https://mcp.nstdata.io/crawl` with Streamable HTTP and browser OAuth. The hosted service runs remotely. The Nstdata API key comes from the [Nstdata dashboard](https://app.nstdata.io/) and is entered by the user on the Nstdata authorization page.
+Use `https://mcp.nstdata.io/crawl` with Streamable HTTP and browser OAuth. Users can authorize their Nstdata account without an API key.
 
 ## Set up the active client
 
@@ -34,7 +34,7 @@ For Cursor, merge this entry into the existing `mcpServers` object:
 }
 ```
 
-Use the OAuth URL issued by the client and let the user review the requesting app and enter the key on the official Nstdata page at `https://mcp.nstdata.io`. Leave manual authorization headers and bearer-token fields empty. Keep keys, tokens and OAuth callbacks out of chat, commands, logs and repository files.
+Open the OAuth URL issued by the client. On the Nstdata authorization page, have the user sign in if prompted, review the requesting app, confirm the **Billing workspace** and select **Authorize and return**. If the user prefers an existing Crawl API key, they can choose **Use an existing API Key**, enter the key on the official Nstdata authorization page and select **Authorize**. Leave manual authorization headers and bearer-token fields empty for OAuth. Keep keys, tokens and OAuth callbacks out of chat, commands, logs and repository files.
 
 ## Verify that the connection is ready
 

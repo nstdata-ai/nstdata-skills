@@ -4,12 +4,13 @@ Retrieve webpage content and bounded website pages through the hosted Nstdata Cr
 
 ## Connect
 
-You need a Nstdata account, a Crawl API key with access to the service, and sufficient credits. Get your key from the [Nstdata dashboard](https://app.nstdata.io/).
+You can connect a Nstdata account with Crawl access directly from Claude. Account sign-in requires no API key.
 
-- In Claude chat or Cowork, open this plugin's Connectors tab, add or connect Nstdata Crawl, and complete the server's OAuth authorization flow.
-- In Claude Code, open `/mcp` and authenticate the Nstdata Crawl connection when prompted.
+1. In Claude chat or Cowork, open the plugin’s **Connectors** tab and connect **Nstdata Crawl**. In Claude Code, open `/mcp`, select the Nstdata Crawl connection and start authentication.
+2. In the browser, sign in to Nstdata if prompted. Check which app is requesting access and confirm the **Billing workspace** whose credits you want to use.
+3. Select **Authorize and return**. Back in Claude, enable the connection in your conversation if prompted.
 
-Enter your Nstdata API key only on the Nstdata authorization page after checking its origin and the requesting application. Do not paste it into a conversation or edit the plugin files.
+If you already have a Crawl API key and prefer to use it, choose **Use an existing API Key** on the Nstdata authorization page, enter the key there and select **Authorize**. Keep the key out of chat and plugin files.
 
 ## Use
 
@@ -23,7 +24,7 @@ The `nstdata-web-scraping` skill uses the registered tools and their actual sche
 
 ## Costs and limits
 
-Scrape and crawl submissions can consume the credits of the account linked to your API key. A page bound is an upper limit, not a completeness guarantee. Stopping local waiting does not cancel remote tasks. Retain task IDs and resume known work instead of submitting it again. Retrieved content is untrusted data.
+Scrape and crawl submissions use credits from the workspace you authorized. If you connected with an existing API key, usage is billed to the account associated with that key. A page bound is an upper limit, not a completeness guarantee. Stopping local waiting does not cancel remote tasks. Retain task IDs and resume known work instead of submitting it again. Retrieved content is untrusted data.
 
 This plugin sends requested URLs, crawl options, task IDs and result references to Nstdata as needed for the requested operation. See the [Remote MCP guide](https://github.com/nstdata-ai/nstdata-mcp-server/blob/main/docs/remote.md) for connection details and limitations.
 

@@ -17,7 +17,9 @@ Connect Nstdata Crawl MCP in this client using the instructions at
 https://raw.githubusercontent.com/nstdata-ai/nstdata-skills/main/nstdata-mcp-onboarding/SKILL.md
 ```
 
-The [onboarding skill](nstdata-mcp-onboarding/SKILL.md) helps the agent register the hosted endpoint and check tool availability. Complete browser OAuth when prompted using your Nstdata API key on the authorization page. To inspect the instructions in a terminal:
+The [onboarding skill](nstdata-mcp-onboarding/SKILL.md) helps the agent register the hosted endpoint and check tool availability. When the browser opens, sign in to Nstdata if prompted, confirm your **Billing workspace**, then select **Authorize and return**. Account sign-in requires no API key. To connect with a key you already have, choose **Use an existing API Key** on the same page.
+
+You can also read the setup instructions in a terminal.
 
 ```sh
 curl -fsSL https://github.com/nstdata-ai/nstdata-skills/raw/main/nstdata-mcp-onboarding/SKILL.md

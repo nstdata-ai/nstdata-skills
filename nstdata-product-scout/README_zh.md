@@ -52,7 +52,9 @@ npx skills add nstdata-ai/nstdata-skills --skill nstdata-product-scout --agent c
 https://mcp.nstdata.io/crawl
 ```
 
-在浏览器中完成授权。如果 Nstdata 官方授权页提示输入 API Key，就在该页填写，点击 **Authorize**。回到客户端后，应能看到包括 `nstdata_crawl_scrape` 在内的 6 个 Crawl 工具。如果当前对话尚未发现工具，重新加载连接或新开对话。实际抓取会消耗账号的 Crawl 额度。[各客户端接入说明](https://github.com/nstdata-ai/nstdata-mcp-server/blob/main/docs/remote_zh.md)
+浏览器打开 Nstdata 授权页后，按提示登录账号，确认 **Billing workspace**（本次查价使用额度的工作区），点击 **Authorize and return**。账号授权无需填写 API Key。已有 Crawl API Key 的用户也可以选择 **Use an existing API Key**，在授权页填写后点击 **Authorize**。
+
+回到客户端后，应能看到包括 `nstdata_crawl_scrape` 在内的 6 个 Crawl 工具。如果当前对话尚未发现工具，重新加载连接或新开对话。[各客户端接入说明](https://github.com/nstdata-ai/nstdata-mcp-server/blob/main/docs/remote_zh.md)
 
 ### 3. 在对话中查价
 

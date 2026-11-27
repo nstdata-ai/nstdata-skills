@@ -17,7 +17,9 @@
 https://raw.githubusercontent.com/nstdata-ai/nstdata-skills/main/nstdata-mcp-onboarding/SKILL.md
 ```
 
-[接入 Skill](nstdata-mcp-onboarding/SKILL.md)会指导 Agent 注册云端地址并检查工具是否可用。浏览器弹出 OAuth 授权页后，在 Nstdata 页面输入你的 API Key 并完成授权。也可以在终端查看接入说明：
+[接入 Skill](nstdata-mcp-onboarding/SKILL.md) 会指导 Agent 添加云托管 MCP 并检查工具是否可用。浏览器打开 Nstdata 授权页后，按提示登录账号，确认 **Billing workspace**（本次抓取消耗额度的工作区），再点击 **Authorize and return** 返回客户端。账号授权无需填写 API Key。已有 Crawl API Key 的用户也可以在同一页选择 **Use an existing API Key**。
+
+也可以在终端运行下面的命令查看接入说明。
 
 ```sh
 curl -fsSL https://github.com/nstdata-ai/nstdata-skills/raw/main/nstdata-mcp-onboarding/SKILL.md

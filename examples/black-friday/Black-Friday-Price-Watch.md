@@ -25,7 +25,9 @@ If your agent asks you to add the server yourself, open its **MCP settings**, ad
 https://mcp.nstdata.io/crawl
 ```
 
-Follow the browser authorization prompt. Enter your Nstdata API key on the official Nstdata authorization page when requested, then select **Authorize**. Keep the key out of chat. Back in the client, look for **six Crawl tools**, including `nstdata_crawl_scrape`. If the client saved the connection but the current chat still has no tools, reload the connection or open a new chat. Live checks use your Nstdata credits. [Client-specific setup instructions](https://github.com/nstdata-ai/nstdata-mcp-server/blob/main/docs/remote.md)
+When the Nstdata authorization page opens, sign in if prompted, confirm the **Billing workspace** that will pay for your price checks, then select **Authorize and return**. Account sign-in requires no API key. If you prefer to use an existing Crawl API key, select **Use an existing API Key**, enter it on that page and select **Authorize**.
+
+Back in the client, look for **six Crawl tools**, including `nstdata_crawl_scrape`. If the client saved the connection but the current chat still has no tools, reload the connection or open a new chat. [Client-specific setup instructions](https://github.com/nstdata-ai/nstdata-mcp-server/blob/main/docs/remote.md)
 
 ## Step 2 · Run your first Black Friday price check
 
